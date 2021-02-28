@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>设备清查</title>
+    <link href="../css/reset.css" rel="stylesheet"/>
+    <link href="../plugins/mui/css/mui.min.css" rel="stylesheet"/>
+    <link href="../css/common.css" rel="stylesheet"/>
+    <link href="../css/home.css" rel="stylesheet"/>
+    <link href="../css/equipmentCheck.css" rel="stylesheet"/>
+
+    <style type="text/css">
+        #list {
+            /*避免导航边框和列表背景边框重叠，看起来像两条边框似得；*/
+            margin-top: -1px;
+        }
+        .ul-content {
+            list-style:none;
+            margin:0;
+            padding:0;
+            text-align:left;
+        }
+        li {
+            padding: 0.8em;
+            border-bottom: 1px solid #eaeaea;
+        }
+        li:active {
+            background: #f4f4f4;
+        }
+        .shipping {
+            font-size: 0.9em;
+            color: #838383;
+        }
+        #scan_code, #bt_start, #bt_end {
+            margin-top:40px;
+            margin-left:100px;
+        }
+        #scan, #start, #end {
+            width: 80px;
+            height: 30px;
+            background: #f4f4f4;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav">
+        <a id="back" href="javascript:;" onclick="javascript:history.back(-1);" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">货物启运</h1>
+    </header>
+
+
+    <div id="lists" class="mui-content" style="background:#FFFFFF;">
+        <ul class="ul_content">
+            <li onclick="connect.connection()">
+                <div class="shipping_list">
+                    <div class="shipping">运单号：
+                        <span id="note_number">2020090311523000879</span>
+                    </div>
+                </div>
+            </li>
+            <li onclick="connect.connection()">
+                <div class="shipping_list">
+                    <div class="shipping">分单号：
+                        <span id="serial_number">20200905191238B7A9C</span>
+                    </div>
+                </div>
+            </li>
+            <li onclick="connect.connection()">
+                <div class="shipping_list">
+                    <div class="shipping">启运区域代码：
+                        <span id="start_code">150100</span>
+                    </div>
+                </div>
+            </li>
+            <li onclick="connect.connection()">
+                <div class="shipping_list">
+                    <div class="shipping">到达区域代码：
+                        <span id="end_code">150102</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div id="scan_code" >
+<!--            <button id="scan" onclick="window.Android.showToast('JS中传来的参数')">扫码</button>-->
+            <button id="scan" onclick="shipping.scan()">扫码</button>
+        </div>
+
+        <div id="bt_start" >
+            <button id="start" onclick="shipping.startDispatch()">货物启运</button>
+        </div>
+
+        <div id="bt_end">
+            <button id="end" onclick="shipping.endDispatch()">货物送达</button>
+        </div>
+    </div>
+</body>
+
+<script src="../plugins/jquery-1.10.2.min.js"></script>
+<script src="../plugins/mui/js/mui.min.js"></script>
+<script src="shippingLists.js"></script>
+<script src="../js/init.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+    mui.init();
+</script>
+</html>

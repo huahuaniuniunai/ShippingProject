@@ -1,0 +1,24 @@
+@charset "UTF-8";
+.equipment-title1{
+    background: url("../images/equipment_icon1.png") center top no-repeat;
+    background-size: 45px 45px;
+}
+.equipment-title2{
+    background: url("../images/equipment_icon2.png") center top no-repeat;
+    background-size: 45px 45px;
+}
+.equipment-title3{
+    background: url("../images/equipment_icon3.png") center top no-repeat;
+    background-size: 45px 45px;
+}
+.equipment-title4{
+    background: url("../images/equipment_icon4.png") center top no-repeat;
+    background-size: 45px 45px;
+}
+.equipment-title5{
+    background: url("../images/equipment_icon5.png") center top no-repeat;
+    background-size: 45px 45px;
+}
+.main-center{
+    padding: 0;
+}

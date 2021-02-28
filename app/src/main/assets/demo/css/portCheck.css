@@ -1,0 +1,143 @@
+@charset "UTF-8";
+html,body{
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+}
+.mui-bar-nav~.mui-content{
+    position: relative;
+    height: 100%;
+    padding-bottom: 80px;
+}
+.port-list{
+    background: #fff;
+    height: 100%;
+    overflow: auto;
+}
+.port-list li{
+    position: relative;
+    padding: 16px 15px 25px 40px;
+}
+.port-list li+li{
+    border-top: 1px solid #ececec;
+}
+.port-checkbox{
+    position: absolute;
+    top: 30px;
+    left: 15px;
+}
+.port-box-item-two .port-box-mod{
+    float: left;
+    width: 50%;
+}
+
+.port-box-item{
+    position: relative;
+    height: 35px;
+    line-height: 35px;
+    overflow: hidden;
+}
+.port-box-mod{
+    position: relative;
+}
+.port-label-box{
+    float: left;
+    width: 70px;
+    height: 36px;
+    padding-right: 15px;
+    line-height: 47px;
+    text-align: right;
+}
+.port-box-item-two .port-box-mod:last-child .port-label-box{
+    padding-right: 7px;
+}
+.port-input-box{
+    position: relative;
+    margin-left: 70px;
+}
+.port-input-box-icon span{
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #999999;
+    padding-left: 18px;
+    font-size: 12px;
+}
+.icon-add{
+    background: url("../images/icon_add.png") 2.5px center no-repeat;
+    background-size: 11.5px 11.5px;
+}
+.icon-printing{
+    background: url("../images/icon_printing.png") left center no-repeat;
+    background-size: 14px 14px;
+}
+.icon-camera{
+    background: url("../images/icon_camera.png") left center no-repeat;
+    background-size: 15px 14px;
+}
+.port-input-box input{
+    margin: 0;
+    padding: 0;
+    height: 22px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #ececec;
+    /* line-height: 60px; */
+    font-size: 13px;
+}
+.port-input-box-icon input{
+    padding-right: 60px;
+}
+.choose-cont input{
+    float: right;
+    padding: 0;
+    /*color: #999;*/
+    margin: 0;
+    width: 70px;
+    height: 28px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #ececec;
+    line-height: 35px;
+    font-size: 13px;
+    text-align: center;
+}
+.type-pick input{
+    text-align: center;
+}
+.arrow-down{
+    position: absolute;
+    right: 0;
+    width: 11px;
+    height: 28px;
+    background: url("../images/arrow_down.png") center no-repeat;
+    background-size: 11px 5.5px;
+}
+.button-box{
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    padding: 0 7.5px;
+}
+.button-item{
+    float: left;
+    width: 25%;
+    padding: 0 7.5px;
+}
+.button-box button{
+    width: 100%;
+    color: #ffab1a;
+    background: #fff;
+    border: 1px solid #ffab1a;
+    height: 48px;
+    font-size: 20px;
+}
+.button-box .test-btn{
+    color: #fff;
+    border: none;
+    background: #ffab1a;
+}
+.red-list{
+    color: #f44a4a;
+}

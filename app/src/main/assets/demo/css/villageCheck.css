@@ -1,0 +1,175 @@
+@charset "UTF-8";
+html,body{
+    width: 100%;
+    height: 100%;
+    color: #999;
+    font-size: 13px;
+    background-color: #f3f5f9;
+}
+.mui-bar-nav~.mui-content{
+    position: relative;
+    padding: 52px 11px 96px;
+    background-color: #f3f5f9;
+    min-height: 100%;
+}
+.choose-box-item{
+    padding: 8px 5px;
+}
+.choose-box-two .choose-box-item{
+    float: left;
+    width: 50%;
+}
+.choose-cont{
+    position: relative;
+    height: 40px;
+    background: #fff;
+    padding: 0 10px;
+    border-radius: 8px;
+    border: 1px solid #ececec;
+    line-height: 40px;
+}
+.choose-cont-textarea{
+    height: auto;
+}
+.choose-cont input{
+    float: left;
+    padding: 0;
+    border: none;
+    color: #999;
+    margin: 0;
+    height: 100%;
+    width: calc(100% - 11px);
+    font-size: 13px;
+}
+.choose-cont textarea{
+    /*float: left;*/
+    padding: 0;
+    padding-top: 7px;
+    border: none;
+    color: #999;
+    margin: 0;
+    height: 130px;
+    line-height: 16px;
+    /*width: calc(100% - 11px);*/
+    font-size: 13px;
+}
+.arrow-down{
+    float: right;
+    width: 11px;
+    height: 100%;
+    background: url("../images/arrow_down.png") center no-repeat;
+    background-size: 11px 5.5px;
+}
+.textarea-edit{
+    position: absolute;
+    bottom: 7px;
+    right: 7px;
+    padding-left: 14px;
+    background: url("../images/icon_edit.png") left center no-repeat;
+    background-size: 11px 11px;
+    line-height: 14px;
+}
+.choose-box-left{
+    float: left;
+    width: calc(100% - 85px);
+}
+.choose-box-right{
+    float: left;
+    width: 85px;
+    padding: 8px 5px;
+}
+.choose-box-right span{
+    display: inline-block;
+    width: 100%;
+    color: #222;
+    border: 1px solid #999999;
+    border-radius: 8px;
+    height: 40px;
+    background: #fff;
+    line-height: 40px;
+    text-align: center;
+}
+.choose-box-title{
+    float: left;
+    color: #222;
+    height: 40px;
+    padding: 8px 5px;
+    line-height: 40px;
+}
+.choose-btn-box{
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    padding: 0 11px;
+}
+.choose-box button{
+    width: 100%;
+    color: #fff;
+    background: #ffab1a;
+    border: none;
+    height: 48px;
+}
+.choose-box .cancel-btn{
+    color: #ffab1a;
+    border: 1px solid #ffab1a;
+    background: #fff;
+}
+.pop{
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    width: 245px;
+    padding: 0 8px 16px;
+    border-radius: 8px;
+    z-index: 999;
+}
+.pop-text{
+    color: #383838;
+    padding: 45px 0 37px;
+    font-size: 15px;
+    text-align: center;
+}
+.pop button{
+    height: 40px;
+}
+.pop .choose-box-item{
+    padding: 8px;
+}
+
+.textarea-address{
+    position: absolute;
+    bottom: 7px;
+    right: 7px;
+    padding-left: 14px;
+    background: url("../images/icon_address.png") left center no-repeat;
+    background-size: 10px 12px;
+    line-height: 14px;
+}
+.choose-box-edit .choose-cont{
+    float: left;
+    width: calc(100% - 40px);
+}
+.icon-edit{
+    float: right;
+    width: 40px;
+    height: 40px;
+    background: url("../images/icon_edit.png") center no-repeat;
+    background-size: 11px 11px;
+}
+.custom-pop{
+    padding: 16px 0;
+}
+.pop-title{
+    color: #383838;
+    padding-left: 16px;
+    border-left: 2px solid #ffab1a;
+    line-height: 20px;
+    font-size: 14px;
+}
+.pop-cont{
+    padding: 8px 8px 0;
+}

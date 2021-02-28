@@ -1,0 +1,44 @@
+@charset "UTF-8";
+.mui-bar .mui-title{
+    color: #fff;
+}
+.mui-bar{
+    box-shadow: none;
+    background: -moz-linear-gradient(right, #ffdf37 0%, #ffab1a 100%); /* firefox */
+    background: -webkit-linear-gradient(left, #ffdf37 0%,#ffab1a 100%); /* chrome */
+    background: -o-linear-gradient(right, #ffdf37 0%,#ffab1a 100%); /* opera */
+    background: -ms-linear-gradient(right, #ffdf37 0%,#ffab1a 100%); /* ie */
+    background: linear-gradient(to right, #ffdf37,#ffab1a); /* firefox */
+}
+.mui-bar-nav.mui-bar .mui-icon.mui-action-back{
+    color: #fff;
+}
+input::-webkit-input-placeholder { /* WebKit browsers */ color: #999999!important;}
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */  color: #999999!important;}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */  color: #999999!important;}
+input:-ms-input-placeholder { /* Internet Explorer 10+ */  color: #999999!important;}
+textarea::-webkit-input-placeholder { /* WebKit browsers */ color: #999999!important;}
+textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */  color: #999999!important;}
+textarea::-moz-placeholder { /* Mozilla Firefox 19+ */  color: #999999!important;}
+textarea:-ms-input-placeholder { /* Internet Explorer 10+ */  color: #999999!important;}
+.mui-poppicker-btn-ok{
+    background-color: #ffab1a;
+    border: 1px solid #ffab1a;
+}
+.input-checkbox{
+    width: 17px;
+    height: 17px;
+    background-color: #fff;
+    appearance:none;
+    -webkit-appearance:none;
+    -o-appearance:none;
+    -moz-appearance:none;
+    border: 1px solid #ececec;
+    border-radius: 2px;
+    outline: none;
+}
+.input-checkbox[type=checkbox]:checked{
+    border: 1px solid #ffb73a;
+    background: url("../images/icon_check.png")center no-repeat;
+    background-size: 10px 7px;
+}

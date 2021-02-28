@@ -1,0 +1,163 @@
+@charset "UTF-8";
+html,body{
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+}
+.mui-bar-nav~.mui-content{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.map{
+    width: 100%;
+    height: 100%;
+}
+.pop{
+    /*display: none;*/
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    width: 245px;
+    padding: 20px 16px;
+    border-radius: 8px;
+    z-index: 999;
+}
+.pop-btn button{
+    width: 100%;
+    height: 40px;
+    color: #222222;
+    border: 1px solid #ececec;
+    font-size: 15px;
+}
+.pop-btn+.pop-btn{
+    margin-top: 15px;
+}
+.pop-btn .cancel-btn{
+    background: #ffab1a;
+    border: none;
+    color: #fff;
+}
+.pop-close{
+    position: absolute;
+    bottom: -40px;
+    width: 24px;
+    height: 24px;
+    left: 50%;
+    margin-left: -24px;
+    background: url("../images/icon_close_circle.png") no-repeat;
+    background-size: 100% 100%;
+}
+.pop-close:before{
+    position: absolute;
+    content: '';
+    border-left: 1px dotted #fff;
+    width: 1px;
+    height: 16px;
+    top: -15px;
+    left: 12px;
+    }
+
+
+.collection-list{
+    padding: 0 16px;
+    background: #ffffff;
+}
+.collection-list li{
+    position: relative;
+    padding: 40px 0 20px;
+}
+.collection-list li+li{
+    border-top: 1px solid #f3f5f9;
+}
+.collection-checkbox{
+    width: 17px;
+    height: 17px;
+    background-color: #fff;
+    appearance:none;
+    -webkit-appearance:none;
+    -o-appearance:none;
+    -moz-appearance:none;
+    border: 1px solid #ececec;
+    border-radius: 2px;
+    outline: none;
+}
+.collection-checkbox[type=checkbox]:checked{
+    border: 1px solid #ffb73a;
+    background: url("../images/icon_check.png")center no-repeat;
+    background-size: 10px 7px;
+}
+.collection-point{
+    color: #999999;
+    margin-left: 7px;
+}
+.collection-list-input{
+    position: absolute;
+    top: 20px;
+    left: 67px;
+    right: 95px;
+}
+.collection-input-item{
+    position: relative;
+    float: left;
+    width: 50%;
+    padding-left: 24px;
+}
+.collection-input-item input{
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #ececec;
+}
+.collection-input-item span{
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    font-size: 12px;
+}
+.collection-button{
+    float: right;
+}
+.collection-button{
+    width: 85px;
+    color: #222;
+    border-radius: 8px;
+    height: 40px;
+    padding: 0;
+    margin-top: -20px;
+    line-height: 40px;
+    border: 1px solid #999999;
+}
+.collection-button.active{
+    color: #ffb73a;
+    border: 1px solid #ffb73a;
+}
+.button-box{
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    padding: 0 7.5px;
+}
+.button-item{
+    float: left;
+    width: 50%;
+    padding: 0 7.5px;
+}
+.button-box button{
+    width: 100%;
+    color: #fff;
+    background: #ffab1a;
+    border: none;
+    height: 48px;
+    font-size: 20px;
+}
+.button-box .cancel-btn{
+    color: #ffab1a;
+    border: 1px solid #ffab1a;
+    background: #fff;
+}
+.collection-fence-pop{
+    display: none;
+}

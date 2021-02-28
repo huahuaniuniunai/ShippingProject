@@ -1,0 +1,122 @@
+@charset "UTF-8";
+html,body{
+    width: 100%;
+    height: 100%;
+}
+.mui-bar-nav~.mui-content{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f3f5f9;
+    padding: 52px 8px 8px 8px;
+}
+.search-box{
+    position: relative;
+    padding: 8px;
+}
+.search-box input{
+    margin: 0;
+    padding-left: 32px;
+    border: 1px solid #ececec;
+    color: #999999;
+    border-radius: 8px;
+    font-size: 13px;
+}
+.icon-search{
+    position: absolute;
+    left: 8px;
+    width: 30px;
+    height: 40px;
+    top: 8px;
+    background: url("../images/icon_search.png") center no-repeat;
+    background-size: 15px 15px;
+}
+.main-menu{
+    position: absolute;
+    top:108px ;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+}
+.main-top{
+    float: left;
+    width: 100%;
+    height: 24.3%;
+}
+.main-center{
+    float: left;
+    width: 100%;
+    padding: 8px;
+    height: 24.3%;
+}
+.main-bottom{
+    float: left;
+    width: 100%;
+    height: 51.4%;
+}
+.main-item{
+    float: left;
+    width: 50%;
+    height: 100%;
+    padding: 8px;
+}
+.main-cont{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ececec;
+}
+.main-bottom-left{
+    float: left;
+    width: 50%;
+    height: 100%;
+    padding: 8px;
+}
+.main-bottom-right{
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+.main-bottom-right .main-item{
+    width: 100%;
+    height: 50%;
+    padding: 8px;
+}
+.main-title{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    padding-top: 54px;
+    color: #222;
+    font-size: 14px;
+    text-align: center;
+}
+.main-title1{
+    background: url("../images/main_icon1.png") center top no-repeat;
+    background-size: 45px 45px;
+}
+.main-title2{
+    background: url("../images/main_icon2.png") center top no-repeat;
+    background-size: 45px 45px;
+}
+.main-title3{
+    background: url("../images/main_icon3.png") center top no-repeat;
+    background-size: 45px 45px;
+}
+.main-title4{
+    background: url("../images/main_icon4.png") center top no-repeat;
+    background-size: 45px 45px;
+}
+.main-title5{
+    background: url("../images/main_icon5.png") center top no-repeat;
+    background-size: 45px 45px;
+}
+.main-title6{
+    background: url("../images/main_icon6.png") center top no-repeat;
+    background-size: 45px 45px;
+}
