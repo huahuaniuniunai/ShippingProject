@@ -31,18 +31,16 @@ public class MainActivity extends Activity {
     private final int mRequestCode = 100;
     private final int REQUEST_CODE_SCAN = 0X01;
     List<String> mPermissionList = new ArrayList<>();
-    //打开扫描界面请求码
-    private int REQUEST_CODE = 0x01;
     private BridgeWebView mWebView;
 
     private class JsBridge {
-        @JavascriptInterface
+        // 安卓原生与h5互调方法定义
+        @JavascriptInterface //js接口声明
         public void showToast(String arg){
             Toast.makeText(MainActivity.this, arg, Toast.LENGTH_SHORT).show();
         }
 
-        // 安卓原生与h5互调方法定义
-        @JavascriptInterface //js接口声明
+        @JavascriptInterface
         public void takePhoto() {
             Intent intent = new Intent(MainActivity.this, CaptureActivity.class); //打开扫一扫
             startActivityForResult(intent, REQUEST_CODE_SCAN);
