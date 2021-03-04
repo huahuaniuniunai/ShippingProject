@@ -84,8 +84,7 @@
         </ul>
 
         <div id="scan_code" >
-<!--            <button id="scan" onclick="window.Android.showToast('JS中传来的参数')">扫码</button>-->
-            <button id="scan" onclick="shipping.scan()">扫码</button>
+            <button id="scan" onclick="window.Android.takePhoto()">扫码</button>
         </div>
 
         <div id="bt_start" >
@@ -105,5 +104,8 @@
 
 <script type="text/javascript" charset="utf-8">
     mui.init();
+    function testResult(content){
+        document.getElementById('end_code').innerText = content;
+    }
 </script>
 </html>

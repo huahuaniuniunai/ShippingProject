@@ -5,22 +5,6 @@ var endCode = document.getElementById('end_code').innerText;
 
 var shipping = function() {
 	return {
-	    scan: function() {
-            window.WebViewJavascriptBridge.callHandler(
-              'scanCode',
-              {},
-              function(responseData){
-                    console.log(responseData);
-                    var noteNumber = JSON.parse(responseData).noteNumber;
-                    var serialNumber = JSON.parse(responseData).serialNumber;
-                    var startCode = JSON.parse(responseData).startCode;
-                    var endCode = JSON.parse(responseData).endCode;
-                    document.getElementById('note_number').innerText = noteNumber;
-                    document.getElementById('serial_number').innerText = serialNumber;
-                    document.getElementById('start_code').innerText = startCode;
-                    document.getElementById('end_code').innerText = endCode;
-              });
-	    },
 		startDispatch: function() {
 		    window.WebViewJavascriptBridge.callHandler(
               'startTransport',
@@ -50,5 +34,5 @@ var shipping = function() {
 }();
 
 $(function() {
-    Idea.init(function() {});
+    JsBridge.init(function() {});
 });
