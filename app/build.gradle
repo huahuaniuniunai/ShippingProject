@@ -16,6 +16,24 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            storeFile file("2021zsw.jks")
+            storePassword "2021zsw"
+            keyAlias "zsw"
+            keyPassword "2021zsw"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
     repositories {
         flatDir {
             dirs 'libs'
