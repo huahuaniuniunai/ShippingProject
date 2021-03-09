@@ -9,10 +9,10 @@ var shipping = function() {
 		    window.WebViewJavascriptBridge.callHandler(
               'startTransport',
               {
-                'noteNumber' : noteNumber,
-                'serialNumber' : serialNumber,
-                'startCode' : startCode,
-                'endCode' : endCode
+                'noteNumber' : noteNumber,    // 运单号
+                'serialNumber' : serialNumber,// 分单号
+                'startCode' : startCode,      // 启运区域代码
+                'endCode' : endCode           // 到达区域代码
               },
               function(responseData){
 

@@ -70,8 +70,8 @@ public class MainActivity extends Activity {
         initPermission();
         mWebView = (BridgeWebView) findViewById(R.id.myweb);
         mWebView.getSettings().setJavaScriptEnabled(true);
-//        mWebView.loadUrl("http://gs.wholexy.cn/index.html");
-        mWebView.loadUrl("file:///android_asset/demo/views/shippingLists.html");
+        mWebView.loadUrl("http://gs.wholexy.cn/index.html");
+//        mWebView.loadUrl("file:///android_asset/demo/views/shippingLists.html");
         mWebView.addJavascriptInterface(new JsBridge(),"Android");
 
         LocationOpenApi.init(MainActivity.this,
