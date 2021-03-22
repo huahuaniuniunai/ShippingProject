@@ -5,12 +5,28 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import android.webkit.JsPromptResult;
+import android.webkit.JsResult;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
@@ -23,15 +39,20 @@ import com.hdgq.locationlib.entity.ShippingNoteInfo;
 import com.hdgq.locationlib.listener.OnResultListener;
 import com.yzq.zxinglibrary.common.Constant;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity {
 
+    private ValueCallback<Uri> mUploadMessage;// 表单的数据信息
+    private ValueCallback<Uri[]> mUploadCallbackAboveL;
+    private final static int FILECHOOSER_RESULTCODE = 1;// 表单的结果回调</span>
     private final int mRequestCode = 100;
     private final int REQUEST_CODE_SCAN = 0X01;
     List<String> mPermissionList = new ArrayList<>();
     private BridgeWebView mWebView;
+    private Uri imageUri;
 
     private class JsBridge {
         // 安卓原生与h5互调方法定义
@@ -55,9 +76,29 @@ public class MainActivity extends Activity {
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
                 String content = data.getStringExtra(Constant.CODED_CONTENT);
-                Log.d("demo", content);
+//                Log.d("demo", content);
                 String method = "javascript:testResult('" + content + "')";
                 mWebView.loadUrl(method);
+            }
+        }
+
+        // 打开相机、相册回调
+        if (requestCode == FILECHOOSER_RESULTCODE) {
+            if (null == mUploadMessage && null == mUploadCallbackAboveL) return;
+            Uri result = data == null || resultCode != RESULT_OK ? null : data.getData();
+            if (mUploadCallbackAboveL != null) {
+                onActivityResultAboveL(requestCode, resultCode, data);
+            } else if (mUploadMessage != null) {
+                Log.e("Mr.Kang", "onActivityResult: "+result);
+                if (result == null) {
+                    mUploadMessage.onReceiveValue(imageUri);
+                    mUploadMessage = null;
+
+                    Log.e("Mr.Kang", "onActivityResult: "+imageUri);
+                } else {
+                    mUploadMessage.onReceiveValue(result);
+                    mUploadMessage = null;
+                }
             }
         }
     }
@@ -70,9 +111,94 @@ public class MainActivity extends Activity {
         initPermission();
         mWebView = (BridgeWebView) findViewById(R.id.myweb);
         mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setAllowFileAccess(true);// 允许file访问
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        mWebView.getSettings().setAllowFileAccessFromFileURLs(true);
+        mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        mWebView.getSettings().setDomStorageEnabled(true);
+        mWebView.getSettings().setLoadWithOverviewMode(true);
+        mWebView.getSettings().setAllowContentAccess(true);
         mWebView.loadUrl("http://gs.wholexy.cn/index.html");
 //        mWebView.loadUrl("file:///android_asset/demo/views/shippingLists.html");
         mWebView.addJavascriptInterface(new JsBridge(),"Android");
+
+        // WebChromeClient是辅助WebView处理Javascript的对话框，网站图标，网站title，加载进度等
+        // WebViewClient是帮助WebView处理各种通知、请求事件的
+        mWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("提示")
+                        .setMessage(message)
+                        .setPositiveButton(android.R.string.ok,
+                                new AlertDialog.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        result.confirm();
+                                    }
+                                })
+                        .setCancelable(false)
+                        .create()
+                        .show();
+
+                return true;
+            }
+
+            @Override
+            public boolean onJsConfirm(WebView view, String url,
+                                       String message, final JsResult result) {
+                AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
+                b.setTitle("提示");
+                b.setMessage(message);
+                b.setPositiveButton(android.R.string.ok,
+                        new AlertDialog.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                result.confirm();
+                            }
+                        });
+                b.setNegativeButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                result.cancel();
+                            }
+                        });
+                b.setCancelable(false);
+                b.create();
+                b.show();
+                return true;
+            }
+
+            @Override
+            public boolean onJsPrompt(WebView view, String url, String message,
+                                      String defaultValue, final JsPromptResult result) {
+                return true;
+            }
+
+            @Override
+            public boolean onShowFileChooser(WebView webView,
+                                             ValueCallback<Uri[]> filePathCallback,
+                                             FileChooserParams fileChooserParams) {
+                mUploadCallbackAboveL = filePathCallback;
+                takePhotos();
+                return true;
+            }
+
+            public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+                mUploadMessage = uploadMsg;
+                takePhotos();
+            }
+
+            public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+                mUploadMessage = uploadMsg;
+                takePhotos();
+            }
+
+            public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+                mUploadMessage = uploadMsg;
+                takePhotos();
+            }
+        });
 
         LocationOpenApi.init(MainActivity.this,
                 "com.example.sszg",
@@ -216,6 +342,76 @@ public class MainActivity extends Activity {
         }else {
 
         }
+    }
+
+    @SuppressWarnings("null")
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void onActivityResultAboveL(int requestCode, int resultCode, Intent data) {
+        if (requestCode != FILECHOOSER_RESULTCODE
+                || mUploadCallbackAboveL == null) {
+            return;
+        }
+
+        Uri[] results = null;
+        if (resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                results = new Uri[]{imageUri};
+            } else {
+                String dataString = data.getDataString();
+                ClipData clipData = data.getClipData();
+
+                if (clipData != null) {
+                    results = new Uri[clipData.getItemCount()];
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        ClipData.Item item = clipData.getItemAt(i);
+                        results[i] = item.getUri();
+                    }
+                }
+
+                if (dataString != null)
+                    results = new Uri[]{Uri.parse(dataString)};
+            }
+        }
+        if (results != null) {
+            mUploadCallbackAboveL.onReceiveValue(results);
+            mUploadCallbackAboveL = null;
+        } else {
+            results = new Uri[]{imageUri};
+            mUploadCallbackAboveL.onReceiveValue(results);
+            mUploadCallbackAboveL = null;
+        }
+
+        return;
+    }
+
+    private void takePhotos() {
+        File imageStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyApp");
+        // Create the storage directory if it does not exist
+        if (!imageStorageDir.exists()) {
+            imageStorageDir.mkdirs();
+        }
+        File file = new File(imageStorageDir + File.separator + "IMG_" + String.valueOf(System.currentTimeMillis()) + ".jpg");
+        imageUri = Uri.fromFile(file);
+
+        final List<Intent> cameraIntents = new ArrayList<Intent>();
+        final Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        final PackageManager packageManager = getPackageManager();
+        final List<ResolveInfo> listCam = packageManager.queryIntentActivities(captureIntent, 0);
+        for (ResolveInfo res : listCam) {
+            final String packageName = res.activityInfo.packageName;
+            final Intent i = new Intent(captureIntent);
+            i.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
+            i.setPackage(packageName);
+            i.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            cameraIntents.add(i);
+
+        }
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType("image/*");
+        Intent chooserIntent = Intent.createChooser(i, "Image Chooser");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[]{}));
+        MainActivity.this.startActivityForResult(chooserIntent, FILECHOOSER_RESULTCODE);
     }
 
     @Override
