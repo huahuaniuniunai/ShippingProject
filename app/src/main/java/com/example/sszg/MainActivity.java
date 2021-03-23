@@ -46,11 +46,11 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     private ValueCallback<Uri> mUploadMessage;// 表单的数据信息
-    private ValueCallback<Uri[]> mUploadCallbackAboveL;
-    private final static int FILECHOOSER_RESULTCODE = 1;// 表单的结果回调</span>
+    private ValueCallback<Uri[]> mUploadCallbackAboveL;// 适配5.0以上设备
+    private final static int FILECHOOSER_RESULTCODE = 1;// 表单的结果回调
     private final int mRequestCode = 100;
     private final int REQUEST_CODE_SCAN = 0X01;
-    List<String> mPermissionList = new ArrayList<>();
+    private List<String> mPermissionList = new ArrayList<>();
     private BridgeWebView mWebView;
     private Uri imageUri;
 
@@ -76,9 +76,20 @@ public class MainActivity extends Activity {
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
                 String content = data.getStringExtra(Constant.CODED_CONTENT);
-//                Log.d("demo", content);
                 String method = "javascript:testResult('" + content + "')";
-                mWebView.loadUrl(method);
+
+                // Android 4.4以后版本才可使用evaluateJavascript()，调用有返回值js方法
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    mWebView.evaluateJavascript(method, new ValueCallback<String>() {
+                        @Override
+                        public void onReceiveValue(String value) {
+                            //此处为 js 返回的结果
+                            Log.d("demo", "扫码结果：" + value);
+                        }
+                    });
+                } else {
+                    mWebView.loadUrl(method);// Android调用没有返回值js方法
+                }
             }
         }
 
@@ -110,19 +121,20 @@ public class MainActivity extends Activity {
 
         initPermission();
         mWebView = (BridgeWebView) findViewById(R.id.myweb);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setAllowFileAccess(true);// 允许file访问
-        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        mWebView.getSettings().setAllowFileAccessFromFileURLs(true);
-        mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);// 设置是否允许WebView支持JavaScript交互（默认是不允许）
+        mWebView.getSettings().setAllowFileAccess(true);//设置可以访问文件,使用File协议
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);//设置支持通过JS打开新窗口或弹框
+        mWebView.getSettings().setAllowFileAccessFromFileURLs(true);// 设置是否允许通过file url加载的Js代码读取其他的本地文件,在Android 4.1前默认允许,在Android 4.1后默认禁止
+        mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);// 设置是否允许通过file url加载的Javascript可以访问其他的源(包括http、https等源)，在Android 4.1前默认允许（setAllowFileAccessFromFileURLs()不起作用）在Android 4.1后默认禁止
         mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.getSettings().setAllowContentAccess(true);
-        mWebView.loadUrl("http://gs.wholexy.cn/index.html");
-//        mWebView.loadUrl("file:///android_asset/demo/views/shippingLists.html");
+        mWebView.getSettings().setSavePassword(false);
+//        mWebView.loadUrl("http://gs.wholexy.cn/index.html");
+        mWebView.loadUrl("file:///android_asset/demo/views/shippingLists.html");
         mWebView.addJavascriptInterface(new JsBridge(),"Android");
 
-        // WebChromeClient是辅助WebView处理Javascript的对话框，网站图标，网站title，加载进度等
+        // setWebChromeClient主要处理解析，渲染网页等浏览器做的事情(浏览器做的事情)；如辅助WebView处理Javascript的对话框，网站图标，网站title，加载进度等
         // WebViewClient是帮助WebView处理各种通知、请求事件的
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -139,7 +151,6 @@ public class MainActivity extends Activity {
                         .setCancelable(false)
                         .create()
                         .show();
-
                 return true;
             }
 
@@ -419,7 +430,7 @@ public class MainActivity extends Activity {
             , @NonNull String[] permissions
             , @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (mRequestCode==requestCode){
+        if (mRequestCode == requestCode){
             for (int i=0;i<grantResults.length;i++){
                 if (grantResults[i]==-1){
                     break;
