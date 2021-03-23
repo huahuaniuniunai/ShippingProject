@@ -126,12 +126,23 @@ public class MainActivity extends Activity {
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);//设置支持通过JS打开新窗口或弹框
         mWebView.getSettings().setAllowFileAccessFromFileURLs(true);// 设置是否允许通过file url加载的Js代码读取其他的本地文件,在Android 4.1前默认允许,在Android 4.1后默认禁止
         mWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);// 设置是否允许通过file url加载的Javascript可以访问其他的源(包括http、https等源)，在Android 4.1前默认允许（setAllowFileAccessFromFileURLs()不起作用）在Android 4.1后默认禁止
-        mWebView.getSettings().setDomStorageEnabled(true);
-        mWebView.getSettings().setLoadWithOverviewMode(true);
-        mWebView.getSettings().setAllowContentAccess(true);
-        mWebView.getSettings().setSavePassword(false);
-//        mWebView.loadUrl("http://gs.wholexy.cn/index.html");
-        mWebView.loadUrl("file:///android_asset/demo/views/shippingLists.html");
+        mWebView.getSettings().setDomStorageEnabled(true);// 设置开启本地DOM存储，默认关闭
+
+        //设置自适应屏幕，两者合用（下面这两个方法合用）
+        mWebView.getSettings().setUseWideViewPort(true); //设置将图片调整到适合webview的大小
+        mWebView.getSettings().setLoadWithOverviewMode(true);// 设置缩放至屏幕的大小
+
+        //缩放操作
+        /*
+        mWebView.getSettings().setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
+        mWebView.getSettings().setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
+        mWebView.getSettings().setDisplayZoomControls(false); //隐藏原生的缩放控件
+        */
+
+        mWebView.getSettings().setAllowContentAccess(true);// 设置允许在WebView中访问内容URL（Content Url），默认允许
+        mWebView.getSettings().setSavePassword(false);// 设置关闭密码保存提醒，默认开启会导致密码明文存储漏洞
+        mWebView.loadUrl("http://gs.wholexy.cn/index.html");
+//        mWebView.loadUrl("file:///android_asset/demo/views/shippingLists.html");
         mWebView.addJavascriptInterface(new JsBridge(),"Android");
 
         // setWebChromeClient主要处理解析，渲染网页等浏览器做的事情(浏览器做的事情)；如辅助WebView处理Javascript的对话框，网站图标，网站title，加载进度等
